@@ -100,7 +100,7 @@ MPF::MPF(QWidget *parent) :
     meskLogoLabel->setAlignment(Qt::AlignHCenter);
     //meskLogoLabel->setText("<img src="+getApplicationFile("/Icons/mesklogo.png") + " >");
 
-
+    fullHelpPushButton->setEnabled(false);
 }
 
 MPF::~MPF()
