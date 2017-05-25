@@ -6,10 +6,10 @@
 #ifndef LINEEDITLISTDELEGATE_HPP
 #define LINEEDITLISTDELEGATE_HPP
 
-#include <QStyledItemDelegate>
-#include <QStyle>
-#include <QLineEdit>
-#include <QApplication>
+#include <QtWidgets/QStyledItemDelegate>
+#include <QtWidgets/QStyle>
+#include <QtWidgets/QLineEdit>
+#include <QtWidgets/QApplication>
 
 
 class lineEditListDelegate : public QStyledItemDelegate

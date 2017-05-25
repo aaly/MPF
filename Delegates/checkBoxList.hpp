@@ -6,12 +6,12 @@
 #ifndef CHECKBOXLIST_H
 #define CHECKBOXLIST_H
 
-#include <Delegates/checkBoxListDelegate.hpp>
-#include <QCheckBox>
-#include <QComboBox>
-#include <QAbstractItemView>
+#include "checkBoxListDelegate.hpp"
+#include <QtWidgets/QCheckBox>
+#include <QtWidgets/QComboBox>
+#include <QtWidgets/QAbstractItemView>
 #include <QEvent>
-#include <QStylePainter>
+#include <QtWidgets/QStylePainter>
 
 class CheckBoxList: public QComboBox
 {
@@ -25,20 +25,20 @@ public:
         void                        SetDisplayText(QString text);
         QString                     GetDisplayText() const;
         void                        addItem ( const QString &, const QVariant & );
-	QVector<QString>	    getSelectedItems();
-	QVector<QString>	    getunSelectedItems();
+        QVector<QString>           getSelectedItems();
+        QVector<QString>            getunSelectedItems();
         int                         setAutoUpdateDisplayText(bool);
-	bool                        getAutoUpdateDisplayText();
-	int			    resetSelection();
+        bool                        getAutoUpdateDisplayText();
+
 private:
         CheckBoxListDelegate*       checkBoxListDelegate;
-	QVector<QString>	    originalSelectedItems;
-	QVector<QString>	    selectedItems;
-	QVector<QString>	    unSelectedItems;
+        QVector<QString>            originalSelectedItems;
+        QVector<QString>            selectedItems;
+        QVector<QString>            unSelectedItems;
         QString                     m_DisplayText;
         bool                        autoUpdateDisplayText;
-	int			    matchComboListItem(const QVector<QString>&, const QString&);
-	bool			    itemsUpdated;
+        int                         matchComboListItem(const QVector<QString>&, const QString&);
+        bool                	    itemsUpdated;
 private slots:
 	int			    updateCurrentSelection(QWidget*);
 	int			    updateCurrentSelection();
@@ -46,5 +46,8 @@ private slots:
 signals:
 	void			    sendCurrentSelection(QStringList);
 	void			    currentItemsUpdated();
+public slots:
+    int			    resetSelection();
+    bool            selectAll(bool);
 };
 #endif // CHECKBOXLIST_H

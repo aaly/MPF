@@ -6,10 +6,10 @@
 #ifndef PROGRESSBARDELEGATE_HPP
 #define PROGRESSBARDELEGATE_HPP
 
-#include <QStyledItemDelegate>
-#include <QStyle>
-#include <QApplication>
-#include <QProgressBar>
+#include <QtWidgets/QStyledItemDelegate>
+#include <QtWidgets/QStyle>
+#include <QtWidgets/QApplication>
+#include <QtWidgets/QProgressBar>
 
 
 

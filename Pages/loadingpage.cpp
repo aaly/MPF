@@ -6,7 +6,7 @@
 #include "loadingpage.hpp"
 #include "ui_loadingPage.h"
 #include <QPropertyAnimation>
-#include <QGraphicsOpacityEffect>
+#include <QtWidgets/QGraphicsOpacityEffect>
 #include <iostream>
 
 using namespace std;
@@ -14,7 +14,7 @@ using namespace std;
 loadingPage::loadingPage(QWidget *parent) :
     pageBase(parent)
 {
-    Ui_loadingPage::setupUi(this);
+    setupUi(this);
 
     pageName = tr("Loading Page");
     pageHelpMessage = tr("");
@@ -25,14 +25,13 @@ loadingPage::loadingPage(QWidget *parent) :
     messageLabel->setTextFormat(Qt::AutoText);
     //messageLabel->setFont(label->font());
     //label->setLocale(QLocale(QLocale::English, QLocale::UnitedStates));
-    //label->setText(tr("الملك"));
 
     iconSize.setHeight(-1);
     iconSize.setWidth(-1);
     iconMovie = new QMovie(this);
-}
 
-#include <unistd.h>
+    messageLabel->setScaledContents(true);
+}
 
 int loadingPage::finish()
 {
@@ -47,28 +46,30 @@ loadingPage::~loadingPage()
 
 int loadingPage::setIcon(QString file)
 {
-    iconLabel->setPixmap(QPixmap(getApplicationFile(file)));
-    iconLabel->setScaledContents(true);
-    setIconSize(iconLabel->pixmap()->size());
-    iconLabel->resize(iconSize);
-
-
-    /*
+    //iconLabel->setPixmap(QPixmap(getApplicationFile(file)));
+    //iconLabel->setScaledContents(true);
+    //setIconSize(iconLabel->pixmap()->size());
+    //iconLabel->resize(iconSize);
     QString icon;
 
-    if(iconSize.width() == -1 && iconSize.height() == -1)
+    /*
+    if(iconSize.width() != -1 && iconSize.height() != -1)
     {
         icon = "<img src=\"" + file + "\" width="+ QString::number(iconSize.width()) +
-                "height=" + QString::number(iconSize.height()) + ">";
+                "height=" + QString::number(iconSize.height()) + " \>";
     }
     else
     {
         icon = "<img src=\"" + file + "\">";
-    }
-    iconLabel->setText(icon);*/
+    }*/
+    iconFile = file;
+    iconLabel->setText(QString ("<img align=absmiddle height="+QString::number(iconSize.height()) + " width="+QString::number(iconSize.width())+" src=\"PATH\">").replace("PATH", file));
+    return 0;
+}
 
-
-
+int loadingPage::updateIcon()
+{
+    iconLabel->setText(QString ("<img align=absmiddle height="+QString::number(iconSize.height()) + " width="+QString::number(iconSize.width())+" src=\"PATH\">").replace("PATH", iconFile));
     return 0;
 }
 
@@ -81,6 +82,14 @@ int loadingPage::setMessage(QString message)
 
     messageLabel->setText(message);
     messageLabel->adjustSize();
+    return 0;
+}
+
+int loadingPage::setMessageSize(unsigned int size)
+{
+    messageLabel->setStyleSheet("font: "+QString::number(size)+"px;");
+    //QFont f( "Arial", size, QFont::Bold);
+    //messageLabel->setFont( f);
     return 0;
 }
 
@@ -104,7 +113,7 @@ int loadingPage::getMessageEffect()
 int loadingPage::setIconSize(QSize size)
 {
     iconSize = size;
-    iconLabel->resize(iconSize);
+    updateIcon();
     resetLayout();
     return 0;
 }
@@ -140,17 +149,20 @@ int loadingPage::getIconAlignment()
 
 int loadingPage::setWidgetEffect(QWidget* widget, int effect)
 {
-    pAnimation = new QPropertyAnimation(this);
+    //pAnimation = new QPropertyAnimation(this);
 
+    QPropertyAnimation* pAnimation = new QPropertyAnimation(this);
+    animations.push_back(pAnimation);
     if(effect == FADEIN)
     {
-        QGraphicsOpacityEffect* opacityEffect = new QGraphicsOpacityEffect(this); // make sure to create using new, since effect has to be alive as long as the target widget is using it.
+        QGraphicsOpacityEffect* opacityEffect = new QGraphicsOpacityEffect(widget); // make sure to create using new, since effect has to be alive as long as the target widget is using it.
         opacityEffect->setOpacity(0);
         pAnimation->setTargetObject(opacityEffect);
         pAnimation->setPropertyName("opacity");
         pAnimation->setStartValue(opacityEffect->opacity());
         pAnimation->setEndValue(1);
         widget->setGraphicsEffect(opacityEffect);
+        //widget->graphicsEffect()->
     }
     else
     {
@@ -172,19 +184,18 @@ int loadingPage::setWidgetEffect(QWidget* widget, int effect)
         }
         pAnimation->setStartValue(point);
     }
-
-    pAnimation->setDuration(3000);
-    //pAnimation->setEasingCurve(QEasingCurve::OutQuad);
-    pAnimation->start(QAbstractAnimation::DeleteWhenStopped);
-
     return 0;
 }
 
 int loadingPage::initAll()
 {
-    pAnimation->setDuration(3000);
-    //pAnimation->setEasingCurve(QEasingCurve::OutQuad);
-    pAnimation->start(QAbstractAnimation::DeleteWhenStopped);
+    for (unsigned int i =0; i < animations.size(); i++)
+    {
+        animations.at(i)->setDuration(5000);
+        animations.at(i)->start();
+        //pAnimation->setEasingCurve(QEasingCurve::OutQuad);
+        //pAnimation->start(QAbstractAnimation::DeleteWhenStopped);
+    }
 
     pageBase::initAll();
     return 0;

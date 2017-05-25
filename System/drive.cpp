@@ -228,14 +228,14 @@ QVector<Partition> Drive::getFullPartitions()
 
 QString Drive::getModel()
 {
-    return (QString::fromAscii(partedDevice->model));
+    return (QString::fromLatin1(partedDevice->model));
 }
 
 QString	Drive::getSize()
 {
     char* size = ped_unit_format_byte(partedDevice,
 				      partedDevice->length * partedDevice->sector_size);
-    return (QString::fromAscii(size));
+    return (QString::fromLatin1(size));
 }
 
 QString Drive::getTransport()

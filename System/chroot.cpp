@@ -6,7 +6,7 @@
 #include "chroot.hpp"
 #include <QProcess>
 
-chroot::chroot(QObject *parent) :
+CHRoot::CHRoot(QObject *parent) :
     QObject(parent)
 {
     prepared=false;
@@ -18,7 +18,7 @@ chroot::chroot(QObject *parent) :
     prepare();
 }*/
 
-int chroot::setRoot(QString& croot)
+int CHRoot::setRoot(QString& croot)
 {
     if (croot.size() == 0)
     {
@@ -32,7 +32,7 @@ int chroot::setRoot(QString& croot)
 
 int wait = 10000;
 
-int chroot::prepare()
+int CHRoot::prepare()
 {
     //mountRoot.start("test -d " + root + " || mkdir -p " + root);
     mountRoot.execute("mkdir -p " + root);
@@ -51,7 +51,7 @@ int chroot::prepare()
     return 0;
 }
 
-int chroot::unprepare()
+int CHRoot::unprepare()
 {
     if (!prepared)
     {
@@ -71,15 +71,15 @@ int chroot::unprepare()
     return 0;
 }
 
-int chroot::exec(QString comm)
+int CHRoot::exec(QString comm, unsigned int waitDuration)
 {
     mountRoot.execute("chroot " + root + " " + comm);
-    int ret = mountRoot.waitForFinished(120000);
+    int ret = mountRoot.waitForFinished(waitDuration);
     emit Done(ret);
     return ret;
 }
 
-chroot::~chroot()
+CHRoot::~CHRoot()
 {
-    //unprepare();
+    unprepare();
 }

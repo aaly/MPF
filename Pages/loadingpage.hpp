@@ -51,6 +51,7 @@ public:
     int     getIconAlignment();
     int     resetLayout();
     int     initAll();
+    int     setMessageSize(unsigned int size);
 
 
 private:
@@ -62,9 +63,12 @@ private:
     int     messageEffect;
     int     setWidgetEffect(QWidget*, int);
 
-    QPropertyAnimation* pAnimation;
-
     void changeEvent(QEvent* event);
+    QString iconFile;
+
+    int     updateIcon();
+
+    QVector<QPropertyAnimation*> animations;
 
 
 signals:

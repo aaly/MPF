@@ -8,7 +8,7 @@
 
 #include <QLocale>
 
-#include <QWidget>
+#include <QtWidgets/QWidget>
 #include <QTextCodec>
 #include <QCoreApplication>
 #include <QFile>
@@ -22,36 +22,20 @@ using namespace std;
 #include <QTranslator>
 
 static QTranslator* qtTranslator = new QTranslator();
+static QTranslator* qtTranslator2 = new QTranslator();
 
 
 
 static int debug(QString msg)
 {
-    cout << msg.toStdString() << endl;
+	cout << "[Debug] " << msg.toStdString() << endl;
     return 0;
 }
 
-static QString lang  = QLocale::system().name().mid(0, QLocale::system().name().indexOf('_'));
+extern QString lang;
 
-static QString getApplicationFile(QString file)
-{
-    debug(QCoreApplication::tr("loading application file")+QCoreApplication::applicationDirPath()+file);
-    return QCoreApplication::applicationDirPath()+file;
-    //return ":"+file;
-}
-
-static QString getApplicationLanguageFile(QString file)
-{
-    file = getApplicationFile(file);
-
-    if (!QFile::exists(file+"."+lang))
-    {
-        //debug(QCoreApplication::tr("loading language file")+file+".en");
-        return file+".en";
-    }
-    //debug(QCoreApplication::tr("loading language file")+file+"."+lang);
-    return file+"."+lang;
-}
+QString getApplicationFile(QString file);
+QString getApplicationLanguageFile(QString file);
 
 enum messageType
 {
@@ -75,32 +59,39 @@ public:
     QString       getPageName();
 	virtual int           initAll() { return init = true;}
 
-public:
-    int                         Depend(QString name, pageBase*dep);
+	int                         Depend(QString name, pageBase*dep);
     //static int                  index;
     QString                     pageName;
     QString                     pageHelpMessage;
     QString                     pageGroup;
     QString                     pageIcon;
+    QString                     pageType;
 
     bool                        init;
+	bool                        done;
     pageBase*                   getDependency(QString);
     int                         setStatus(QString, int);
     QVector< QPair<QString, int> > statuses;
+    
 
     //static QVector<pageBase*>   pages;
 signals:
-    void    Status(const QString&, int);
+	void    Status(pageBase*, const QString&, int);
     //void    Busy();
-    void    Done(bool);
+	void    Done(pageBase*, bool);
     void    Ready();
     void    Abort(QString);
     void    Debug(QString);
     void    NotReady();
+    void    clearMessages();
 public slots:
     virtual int     finishUp();
+    virtual int     Clean();
 private:
     QVector< QPair<QString, pageBase*> > dependencies;
+protected:
+	int                         setDone(bool cond);
+
 };
 
 #endif // PAGEBASE_HPP

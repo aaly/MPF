@@ -37,7 +37,7 @@ int CheckBoxList::setAutoUpdateDisplayText(bool cond)
 
     if(autoUpdateDisplayText)
     {
-	updateDisplayText();
+        updateDisplayText();
     }
 
     return 0;
@@ -216,34 +216,57 @@ int CheckBoxList::resetSelection()
     return 0;
 }
 
+bool CheckBoxList::selectAll(bool select)
+{
+    selectedItems = QVector<QString>();
+    unSelectedItems = QVector<QString>();
+    int itemsCount = count();
+
+    for (int i =0; i< itemsCount; i++)
+    {
+        if(select)
+        {
+            selectedItems.push_back(itemText(i));
+        }
+        else
+        {
+            unSelectedItems.push_back(itemText(i));
+        }
+        setItemData(i, select);
+    }
+    itemsUpdated = true;
+    updateDisplayText();
+    return true;
+}
+
 int CheckBoxList::updateDisplayText()
 {
     if(!itemsUpdated || !autoUpdateDisplayText)
     {
-	return 1;
+        return 1;
     }
 
     QString _text ("");
     for ( int i =0; i < selectedItems.count(); i++)
     {
-	if(selectedItems.at(i).length() > 0)
-	{
-	    _text.append(selectedItems.at(i));
-	}
+        if(selectedItems.at(i).length() > 0)
+        {
+            _text.append(selectedItems.at(i));
+        }
 
-	if (i != selectedItems.count()-1)
-	{
-	    _text += ",";
-	}
+        if (i != selectedItems.count()-1)
+        {
+            _text += ",";
+        }
     }
 
     if(_text.length() != 0)
     {
-	m_DisplayText = _text;
+        m_DisplayText = _text;
     }
     else
     {
-	m_DisplayText = tr("None");
+        m_DisplayText = tr("None");
     }
 
     emit currentItemsUpdated();

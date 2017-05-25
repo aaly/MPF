@@ -6,11 +6,11 @@
 #ifndef PARITIONSIZEDELEGATE_H
 #define PARITIONSIZEDELEGATE_H
 
-#include <QStyledItemDelegate>
+#include <QtWidgets/QStyledItemDelegate>
 #include <QSize>
 #include <QPainter>
 #include <QObject>
-#include <QStyleOptionViewItem>
+#include <QtWidgets/QStyleOptionViewItem>
 #include <QModelIndex>
 
 class partitionSizeDelegate : public QStyledItemDelegate

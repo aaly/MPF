@@ -6,7 +6,7 @@
 #ifndef LANGUAGESPAGE_HPP
 #define LANGUAGESPAGE_HPP
 
-#include <QWidget>
+#include <QtWidgets/QWidget>
 #include "pageBase.hpp"
 #include "../ui_languagesPage.h"
 #include <QDir>

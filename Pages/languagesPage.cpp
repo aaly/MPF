@@ -7,10 +7,14 @@
 #include "ui_languagesPage.h"
 #include <QTranslator>
 
+extern QString lang;
+
+
 languagesPage::languagesPage(QWidget *parent) :
     pageBase(parent){
 
     Ui_languagesPage::setupUi(this);
+    ////QTextCodec::setCodecForTr(QTextCodec::codecForName("UTF-8"));
 }
 
 
@@ -19,13 +23,13 @@ int languagesPage::initAll()
     pageBase::initAll();
     initLanguages();
     connect(okPushButton, SIGNAL(clicked()), this, SLOT(applyLanguage()));
-    emit Done(true);
+	setDone(true);
     return 0;
 }
 
 int languagesPage::initLanguages()
 {
-    emit Status(tr("Loading languages"), BUSY);
+	setStatus(tr("Loading languages"), BUSY);
 
     QDir languagesDir;
     QString languagesDirDirPath = getApplicationFile("/Translations/");
@@ -33,8 +37,8 @@ int languagesPage::initLanguages()
 
     if (!languagesDir.exists())
     {
-        emit Status(tr("Ooops , Couldn't find the languages directory : ")+languagesDirDirPath, ERROR);
-        emit Status(tr("Assuming english language"), INFORMATION);
+		setStatus(tr("Ooops , Couldn't find the languages directory : ")+languagesDirDirPath, ERROR);
+		setStatus(tr("Assuming english language"), INFORMATION);
         return 1;
     }
 
@@ -61,14 +65,23 @@ int languagesPage::applyLanguage()
 {
     if (! qtTranslator->load(getApplicationFile("/Translations/")+languagesListWidget->selectedItems().at(0)->text()) )
     {
-        emit Status(tr("loaded ") + languagesListWidget->selectedItems().at(0)->text() + tr(" language"), ERROR);
+        setStatus(tr("couldn't load ") + languagesListWidget->selectedItems().at(0)->text() + tr(" language"), ERROR);
     }
     //QApplication::installTranslator(qtTranslator);
     qApp->installTranslator(qtTranslator);
 
-    emit Status(tr("loaded ") + languagesListWidget->selectedItems().at(0)->text() + tr(" language"), INFORMATION);
+
+    if (! qtTranslator2->load("/usr/include/MPF/Translations/"+languagesListWidget->selectedItems().at(0)->text()) )
+	{
+        setStatus(tr("couldn't load ") + languagesListWidget->selectedItems().at(0)->text() + tr(" language"), ERROR);
+	}
+	//QApplication::installTranslator(qtTranslator);
+    qApp->installTranslator(qtTranslator2);
+
+	setStatus(tr("loaded ") + languagesListWidget->selectedItems().at(0)->text() + tr(" language"), INFORMATION);
 
     language = languagesListWidget->selectedItems().at(0)->text();
+    lang = language;
     emit selectedLanguage(language);
 
     //retranslateUi(this);

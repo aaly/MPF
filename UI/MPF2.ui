@@ -43,7 +43,7 @@
       </property>
       <layout class="QHBoxLayout" name="horizontalLayout_2">
        <item>
-        <layout class="QVBoxLayout" name="verticalLayout_2">
+        <layout class="QVBoxLayout" name="verticalLayout_5">
          <item>
           <layout class="QGridLayout" name="gridLayout" rowstretch="2,0,0,0">
            <property name="sizeConstraint">
@@ -117,14 +117,14 @@
           </layout>
          </item>
          <item>
-          <widget class="Line" name="line_7">
-           <property name="orientation">
-            <enum>Qt::Horizontal</enum>
-           </property>
-          </widget>
-         </item>
-         <item>
           <layout class="QVBoxLayout" name="verticalLayout">
+           <item>
+            <widget class="Line" name="line_7">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+            </widget>
+           </item>
            <item>
             <spacer name="verticalSpacer_4">
              <property name="orientation">
@@ -136,103 +136,49 @@
              <property name="sizeHint" stdset="0">
               <size>
                <width>17</width>
-               <height>13</height>
+               <height>8</height>
               </size>
              </property>
             </spacer>
            </item>
            <item>
-            <layout class="QHBoxLayout" name="prevHorizontalLayout">
-             <property name="spacing">
-              <number>0</number>
+            <widget class="QToolButton" name="previousPushButton">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
              </property>
-             <item>
-              <widget class="QToolButton" name="prevButtonIcon">
-               <property name="enabled">
-                <bool>true</bool>
-               </property>
-               <property name="text">
-                <string/>
-               </property>
-               <property name="checkable">
-                <bool>false</bool>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QToolButton" name="previousPushButton">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="text">
-                <string>&amp;Previous</string>
-               </property>
-              </widget>
-             </item>
-            </layout>
+             <property name="text">
+              <string>&amp;Previous</string>
+             </property>
+            </widget>
            </item>
            <item>
-            <layout class="QHBoxLayout" name="nextHorizontalLayout">
-             <property name="spacing">
-              <number>0</number>
+            <widget class="QToolButton" name="nextPushButton">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
              </property>
-             <item>
-              <widget class="QToolButton" name="nextButtonIcon">
-               <property name="enabled">
-                <bool>true</bool>
-               </property>
-               <property name="text">
-                <string/>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QToolButton" name="nextPushButton">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="text">
-                <string>&amp;Next</string>
-               </property>
-              </widget>
-             </item>
-            </layout>
+             <property name="text">
+              <string>&amp;Next</string>
+             </property>
+            </widget>
            </item>
            <item>
-            <layout class="QHBoxLayout" name="exitHorizontalLayout">
-             <property name="spacing">
-              <number>0</number>
+            <widget class="QToolButton" name="exitPushButton">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>6</verstretch>
+              </sizepolicy>
              </property>
-             <item>
-              <widget class="QToolButton" name="exitButtonIcon">
-               <property name="enabled">
-                <bool>true</bool>
-               </property>
-               <property name="text">
-                <string/>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QToolButton" name="exitPushButton">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-                 <horstretch>0</horstretch>
-                 <verstretch>6</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="text">
-                <string>&amp;Exit</string>
-               </property>
-              </widget>
-             </item>
-            </layout>
+             <property name="text">
+              <string>&amp;Exit</string>
+             </property>
+            </widget>
            </item>
           </layout>
          </item>
@@ -263,8 +209,8 @@
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>670</width>
-              <height>236</height>
+              <width>706</width>
+              <height>232</height>
              </rect>
             </property>
             <property name="sizePolicy">
@@ -372,18 +318,6 @@
   <widget class="QStatusBar" name="statusBar"/>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
- <tabstops>
-  <tabstop>nextPushButton</tabstop>
-  <tabstop>previousPushButton</tabstop>
-  <tabstop>helpPushButton</tabstop>
-  <tabstop>fullHelpPushButton</tabstop>
-  <tabstop>exitPushButton</tabstop>
-  <tabstop>exitButtonIcon</tabstop>
-  <tabstop>prevButtonIcon</tabstop>
-  <tabstop>nextButtonIcon</tabstop>
-  <tabstop>helpTextEdit</tabstop>
-  <tabstop>scrollArea</tabstop>
- </tabstops>
  <resources/>
  <connections>
   <connection>

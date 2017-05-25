@@ -7,7 +7,7 @@
 #define RICHTEXTDELEGATE_HPP
 
 
-#include <QStyledItemDelegate>
+#include <QtWidgets/QStyledItemDelegate>
 #include <QTextDocument>
 
 

@@ -5,15 +5,20 @@
 
 #include "pageBase.hpp"
 
+QString lang;
+
 pageBase::pageBase(QWidget *parent) :
     QWidget(parent)
 {
-    QTextCodec::setCodecForCStrings(QTextCodec::codecForName("UTF-8"));
+    lang  = QLocale::system().name().mid(0, QLocale::system().name().indexOf('_'));
+
+    ////QTextCodec::setCodecForCStrings(QTextCodec::codecForName("UTF-8"));
     if ( lang == "C" || lang == "POSIX")
     {
         lang="en";
     }
 	init = false;
+	done = false;
     //pages.push_back(this);
 }
 
@@ -56,12 +61,47 @@ int pageBase::Depend(QString name, pageBase* dep)
 
  int pageBase::setStatus(QString msg, int type)
  {
-        emit Status(msg, type);
+		emit Status(this, msg, type);
         statuses.push_back(QPair<QString, int>(msg, type));
         return 0;
  }
 
- int     pageBase::finishUp()
+ int pageBase::finishUp()
  {
      return 0;
+ }
+
+ int pageBase::Clean()
+ {
+     return 0;
+ }
+
+ int pageBase::setDone(bool cond)
+ {
+	 done = cond;
+	 emit Done(this, cond);
+	 return cond;
+ }
+
+
+
+
+ QString getApplicationFile(QString file)
+ {
+     debug(QCoreApplication::tr("loading application file")+QCoreApplication::applicationDirPath()+file);
+     return QCoreApplication::applicationDirPath()+file;
+     //return ":"+file;
+ }
+
+  QString getApplicationLanguageFile(QString file)
+ {
+     file = getApplicationFile(file);
+
+     if (!QFile::exists(file+"."+lang))
+     {
+         //debug(QCoreApplication::tr("loading language file")+file+".en");
+         return file+".en";
+     }
+     //debug(QCoreApplication::tr("loading language file")+file+"."+lang);
+     return file+"."+lang;
  }

@@ -6,10 +6,10 @@
 #ifndef CHECKBOXLISTDELEGATE_HPP
 #define CHECKBOXLISTDELEGATE_HPP
 
-#include <QStyledItemDelegate>
-#include <QStyle>
-#include <QApplication>
-#include <QCheckBox>
+#include <QtWidgets/QStyledItemDelegate>
+#include <QtWidgets/QStyle>
+#include <QtWidgets/QApplication>
+#include <QtWidgets/QCheckBox>
 
 class CheckBoxListDelegate : public QStyledItemDelegate
 {

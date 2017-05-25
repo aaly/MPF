@@ -6,10 +6,10 @@
 #ifndef COMBOBOXLISTDELEGATE_HPP
 #define COMBOBOXLISTDELEGATE_HPP
 
-#include <QStyledItemDelegate>
-#include <QStyle>
-#include <QApplication>
-#include <QComboBox>
+#include <QtWidgets/QStyledItemDelegate>
+#include <QtWidgets/QStyle>
+#include <QtWidgets/QApplication>
+#include <QtWidgets/QComboBox>
 
 class ComboBoxListDelegate : public QStyledItemDelegate
 {

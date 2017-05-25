@@ -9,17 +9,17 @@
 #include <QObject>
 #include <QProcess>
 
-class chroot : public QObject
+class CHRoot : public QObject
 {
     Q_OBJECT
 public:
-    explicit chroot(QObject *parent = 0);
+    explicit CHRoot(QObject *parent = 0);
     //chroot(QObject *parent = 0);
-    ~chroot();
+    ~CHRoot();
 
     int setRoot(QString&);
     int prepare();
-    int exec(QString);
+    int exec(QString comm, unsigned int waitDuration=120000);
     int unprepare();
 
     

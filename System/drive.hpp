@@ -200,7 +200,7 @@ static inline QString getSysfsAtrribute(sysfs_class_device *clsdev, QString attr
         }
         sysfs_attribute* attr = (sysfs_attribute*)node->data;
 
-        if (!strcmp(attr->name,attribute.toAscii()))
+        if (!strcmp(attr->name,attribute.toLatin1()))
         {
             return QString(attr->value);
         }
@@ -401,9 +401,9 @@ inline bool mounted(QString devpath)
 
 inline int unmount(QString part)
 {
-    if ( mounted(part) )
+	//if ( mounted(part) )
     {
-        umount2(part.toStdString().c_str(), MNT_DETACH);
+		umount2(part.toStdString().c_str(), MNT_FORCE);
     }
     return 0;
 }

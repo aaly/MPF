@@ -6,10 +6,12 @@
 #ifndef MPF_H
 #define MPF_H
 
-#include <QMainWindow>
+//#include <QMainWindow>
+#include <QtWidgets/QMainWindow>
 #include "ui_MPF.h"
 #include "Pages/pageBase.hpp"
 #include "Pages/loadingpage.hpp"
+#include "Pages/pagesgroup.hpp"
 
 enum widgetEffects
 {
@@ -26,28 +28,34 @@ public:
 	explicit MPF(QWidget *parent = 0);
 
 	~MPF();
-	int     addPage(pageBase* page);
+	int     addGroup(pagesGroup* grp);
+	int     setGroup(pagesGroup* grp);
+    int     cleanLastGroup();
+
 
 private:
 
     int     messageIconWidth;
     int     messageIconHeight;
-    bool    pageReady;
-    int     currentPage;
-    QVector<pageBase*>* pages;
+	//int     currentPage;
+	//QVector<pageBase*>* pages;
 
 
 
-    int     step;
 
 
-    loadingPage*    loadingpage;
+	int currentGroup;
+
+
+	//loadingPage*    loadingpage;
+
+	QVector<pagesGroup*> groups;
+	int selectedGroup;
+
 
     int         loadMessages(pageBase*);
-    int         clearMessages();
 
     void        changeEvent(QEvent* event);
-    int         generateList();
     bool        helpMaximized;
     bool        nextAlreadyEnabled;
 
@@ -57,13 +65,13 @@ public slots:
     int     nextPage();
     int     prevPage();
     int     showFullHelp();
+    int     clearMessages();
 
 
 
 private slots:
-    int animateWidget(QWidget*, bool, int);
-    int     changePage();
-
+	int animateWidget(QWidget*, bool, int);
+	int     changePage(int direction);
     int     updateLayout(QString);
 
 
